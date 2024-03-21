@@ -20,7 +20,7 @@ This repository contains the code and resources for building a personalized chat
 ### Files
 
 approach2-gemini.py: The main Python code for the Cloud Function that leverages GCP Gemini Pro, Cloud Functions, and Cloud Storage to build the chatbot.
-approach2-requirements.txt: The requirements file specifying the necessary dependencies for the Cloud Function.
+approach2-requirements.txt: The requirements file specifies the necessary dependencies for the Cloud Function.
 
 ### Usage
 
@@ -28,4 +28,4 @@ approach2-requirements.txt: The requirements file specifying the necessary depen
 2. Create a new Google Cloud Function and configure it with the provided approach2-gemini.py code and approach2-requirements.txt dependencies.
 3. Set up Dialogflow to call the Cloud Function and integrate the chatbot into your website, following the steps outlined in the blog post.
 
-Please refer to the blog post for detailed explanations, tips, and troubleshooting guidance for each approach.
+Please refer to the blog post for detailed explanations, tips, and troubleshooting guidance for each approach. Make sure to review the code and update it with your own details, such as your own API keys.
