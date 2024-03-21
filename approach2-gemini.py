@@ -16,15 +16,15 @@ def webhook(request):
     
     #1. Extract the user message from Dialogflow request
     request_json = request.get_json(silent=True)
-    user_message = request_json.get('text', '')  # Get the user message from 'text'
+    user_message = request_json.get('text', '')  
     
     # 2. Load data from our knowledge file
     faq_data = []
-    bucket_name = "chatbot-files"
-    file_name = "faq.csv"
-    resource_name = f"projects/785420157452/secrets/dkaccount/versions/2"
+    bucket_name = <BUCKET-NAME> # bucket name where the knowledge document is stored
+    file_name = <FILE-NAME> # knowledge file 
+    service_account_details = <SERVICE-ACCOUNT-DETAILS> # service account details that have access to the file. 
 
-    # Access credentials from Secret Manager client (assuming Secret Manager setup)
+    # Access credentials from Secret Manager client. I stored the service account details in secret manager
     client = secretmanager.SecretManagerServiceClient()
     response = client.access_secret_version(name=resource_name)
 
@@ -39,7 +39,7 @@ def webhook(request):
     # Get the bucket object
     bucket = client.bucket(bucket_name)
 
-    # Access the blob using the bucket and filename
+    # Access the data using the bucket and filename
     blob = bucket.blob(file_name)
 
     # Process data from file
@@ -52,8 +52,8 @@ def webhook(request):
     faq_questions = [item['question'] for item in faq_data]  # List of questions
     faq_answers = [item['answer'] for item in faq_data]  # List of answers
 
-    #3. Leverage Embeddings for text and cosine algorithm in order to get the closest answer from the user requests
-    aiplatform.init(project='techtrails', location='us-central1')
+    #3. Leverage Embeddings for text and cosine algorithm to get the closest answer from the user requests
+    aiplatform.init(project=<PROJECT-ID>, location=<REGION>)
     model = TextEmbeddingModel.from_pretrained("textembedding-gecko")
 
     # Encode the data into embeddings 
@@ -75,7 +75,7 @@ def webhook(request):
 
     # 4. Pass the user request and closest answer to Gemini model for better formatted answer
     context = f"Provide a better answer to User Question: {user_message} \n using this FAQ Answer: {closest_answer}"
-    GOOGLE_API_KEY='AIzaSyDCJZpN07GjjeImLpeYjCSRvnpw56DxCzg'
+    GOOGLE_API_KEY=GEMINI-API-KEY
     genai.configure(api_key=GOOGLE_API_KEY)
     model = genai.GenerativeModel('gemini-pro') #initialize which model we want to use, here it's Gemini Pro
     response = model.generate_content(context) # sending the context to Gemini Pro
