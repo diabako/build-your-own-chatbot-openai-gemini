@@ -1,6 +1,6 @@
 # Building a Personalized Chatbot for My Website: GPT4 and Gemini Approaches
 
-This repository contains the code and resources for building a personalized chatbot using different approaches, as described in the blog post "Building a Personalized Chatbot for My Website: Three Approaches". The code provided here focuses on Approach 1 and Approach 2.
+This repository contains the code and resources for building a personalized chatbot using different approaches, as described in the blog post [Building a Personalized Chatbot for My Website: Three Approaches](test.com). The code provided here focuses on Approach 1 and Approach 2.
 
 ## Approach 1: OpenAI Assistant + GCP Cloud Functions + Dialogflow
 
